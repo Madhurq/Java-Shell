@@ -18,20 +18,26 @@ public class Main {
 
             while (sc.hasNextLine()) {
                 String command = sc.nextLine();
+                //Exit cmds
                 if (Exit.handle(command))
-                {
                     break;
-                }
-
+                //Echo cmds
                 String[] words = command.trim().split(" ");
                 if(words.length>0 && words[0].equals("echo"))
                 {
                     Echo.say(command);
                     continue;
                 }
+
+                //Type cmds
+                if(words.length>0 && words[0].equals("type"))
+                {
+                    Type.show(builtins, command);
+                    continue;
+                }
+
                 System.out.println("$ ");
             }
-
 
         }
     }
