@@ -23,6 +23,13 @@ public class Main {
                     break;
                 }
 
+                String[] words = command.trim().split(" ");
+                if(words.length>0 && words[0].equals("echo"))
+                {
+                    Echo.say(command);
+                    continue;
+                }
+                System.out.println("$ ");
             }
 
 
