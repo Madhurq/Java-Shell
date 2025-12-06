@@ -23,22 +23,44 @@ public class Main {
                     break;
                 //Echo cmds
                 String[] words = command.trim().split(" ");
-                if(words.length>0 && words[0].equals("echo"))
-                {
+                if (words.length > 0 && words[0].equals("echo")) {
                     Echo.say(command);
                     continue;
                 }
 
                 //Type cmds
-                if(words.length>0 && words[0].equals("type"))
-                {
+                if (words.length > 0 && words[0].equals("type")) {
                     Type.show(builtins, command);
                     continue;
                 }
 
-                System.out.println("$ ");
+                //Command exec
+                String path = System.getenv("PATH");
+                String[] dir = path.split(";");
+                boolean found = false;
+                for (String dir1 : dir) {
+                    String fp = dir1 + "\\" + words[0] + ".exe";
+                    File f = new File(fp);
+                    if (f.exists() && f.canExecute()) {
+                        List<String> cmd = new ArrayList<>();
+                        cmd.add(fp);
+                        for (int i = 1; i < words.length; i++) {
+                            cmd.add(words[i]);
+                        }
+                        ProcessBuilder pb = new ProcessBuilder(cmd);
+                        pb.inheritIO();
+                        Process p = pb.start();
+                        p.waitFor();
+                        found = true;
+                        break;
+                    }
+                }
+                if (!found) {
+                    System.out.print(words[0] + ": not found \n$ ");
+                    continue;
+                }
+                System.out.print("$ ");
             }
-
         }
     }
 }
