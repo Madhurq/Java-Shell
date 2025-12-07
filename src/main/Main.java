@@ -35,11 +35,14 @@ public class Main {
                 }
 
                 //Command exec
+                String os = System.getProperty("os.name").toLowerCase();
+                String ps = os.contains("win") ? ";" : ":";
+                String ds = os.contains("win") ? "\\" : "/";
                 String path = System.getenv("PATH");
-                String[] dir = path.split(";");
+                String[] dir = path.split(ps);
                 boolean found = false;
                 for (String dir1 : dir) {
-                    String fp = dir1 + "\\" + words[0] + ".exe";
+                    String fp = dir1 + ds + words[0] + (os.contains("win")?".exe" : "");
                     File f = new File(fp);
                     if (f.exists() && f.canExecute()) {
                         List<String> cmd = new ArrayList<>();
