@@ -16,6 +16,7 @@ public class Main {
             builtins.put("exit", "exit is a shell builtin");
             builtins.put("type", "type is a shell builtin");
             builtins.put("pwd", "pwd is a shell builtin");
+            builtins.put("cd", "cd is a shell builtin");
 
             while (sc.hasNextLine()) {
                 String command = sc.nextLine();
@@ -35,8 +36,15 @@ public class Main {
                     continue;
                 }
 
+                //pwd code
                 if (words.length > 0 && words[0].equals("pwd")) {
                     Pwd.getdir();
+                    continue;
+                }
+
+                //cd code
+                if (words.length > 0 && words[0].equals("cd")) {
+                    Cd.change(words[1]);
                     continue;
                 }
 
