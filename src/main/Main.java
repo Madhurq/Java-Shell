@@ -24,7 +24,8 @@ public class Main {
                 if (Exit.handle(command))
                     break;
                 //Echo cmds
-                String[] words = command.trim().split(" ");
+                String[] words = (Parsec.parse(command));
+
                 if (words.length > 0 && words[0].equals("echo")) {
                     Echo.say(command);
                     continue;
