@@ -27,7 +27,7 @@ public class Main {
                 String[] words = (Parsec.parse(command));
 
                 if (words.length > 0 && words[0].equals("echo")) {
-                    Echo.say(command);
+                    Echo.say(words);
                     continue;
                 }
 
