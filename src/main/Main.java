@@ -26,6 +26,31 @@ public class Main {
                 //Echo cmds
                 String[] words = (Parsec.parse(command));
 
+                //for adding >
+                String outFile = null;
+                List<String> argsList = new ArrayList<>();
+                for (int i = 0; i < words.length; i++) {
+                    String w = words[i];
+                    if (w.equals(">") || w.equals("1>")) {
+                        if (i + 1 >= words.length) {
+                            System.out.println("syntax error: no file after >");
+                            outFile = null;
+                            argsList.clear();
+                            break;
+                        }
+                        outFile = words[++i]; // next token is filename
+                    } else {
+                        argsList.add(w);
+                    }
+                }
+                if (argsList.isEmpty()) {
+                    System.out.print("$ ");
+                    continue;
+                }
+
+                String cmdName = argsList.get(0);
+                String[] args1 = argsList.toArray(new String[0]);
+
                 if (words.length > 0 && words[0].equals("echo")) {
                     Echo.say(words);
                     continue;
@@ -61,14 +86,23 @@ public class Main {
                     File f = new File(fp);
                     if (f.exists() && f.canExecute()) {
                         List<String> cmd = new ArrayList<>();
-                        cmd.add(fp);
-                        for (int i = 1; i < words.length; i++) {
-                            cmd.add(words[i]);
+                        cmd.add(cmdName);  // Using basename
+                        for (int i = 1; i < args1.length; i++) {
+                            cmd.add(args1[i]);
                         }
                         ProcessBuilder pb = new ProcessBuilder(cmd);
-                        pb.inheritIO();
-                        Process p = pb.start();
-                        p.waitFor();
+
+                        pb.directory(new File(dir1));  // using path differently***
+
+                        if (outFile != null) {
+                            pb.redirectOutput(new File(outFile));
+                            pb.redirectError(ProcessBuilder.Redirect.INHERIT);
+                            pb.redirectInput(ProcessBuilder.Redirect.INHERIT);
+                        } else {
+                            pb.inheritIO();
+                        }
+                        Process process = pb.start();
+                        process.waitFor();
                         found = true;
                         break;
                     }
