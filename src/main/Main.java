@@ -21,6 +21,8 @@ public class Main
             builtins.put("pwd", "pwd is a shell builtin");
             builtins.put("cd", "cd is a shell builtin");
             builtins.put("ls", "ls is a shell builtin");
+            builtins.put("cat", "cat is a shell builtin");
+            builtins.put("clear", "clear is a shell builtin");
 
             while (sc.hasNextLine())
             {
@@ -93,6 +95,20 @@ public class Main
                 if (words.length > 0 && words[0].equals("ls"))
                 {
                     Ls.list(words);
+                    continue;
+                }
+
+                //cat code - for looking inside a file :)
+                if (words.length > 0 && words[0].equals("cat"))
+                {
+                    Cat.show(words);
+                    continue;
+                }
+
+                //clear code
+                if (words.length > 0 && words[0].equals("clear"))
+                {
+                    Clear.screen();
                     continue;
                 }
 

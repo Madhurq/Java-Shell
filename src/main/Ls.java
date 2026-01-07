@@ -9,11 +9,11 @@ public class Ls
         String dirPath;
         if (args.length > 1)
         {
-            dirPath = args[1];
+            dirPath = args[1]; //if user mentions explicitely that they want to list a directory
         }
         else
         {
-            dirPath = System.getProperty("user.dir");
+            dirPath = System.getProperty("user.dir"); //else list the current directory
         }
 
         File dir = new File(dirPath);
@@ -36,7 +36,7 @@ public class Ls
             return;
         }
 
-        File[] files = dir.listFiles();
+        File[] files = dir.listFiles(); //array of multiple files
         if (files != null && files.length > 0)
         {
             for (File file : files)
