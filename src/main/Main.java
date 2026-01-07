@@ -132,8 +132,8 @@ public class Main
                             cmd.add(args1[i]);
                         }
                         ProcessBuilder pb = new ProcessBuilder(cmd);
-
-                        pb.directory(new File(dir1));  // using path differently***
+                        //now from this it wont go to the path of the new file which i have queried
+                        pb.directory(new File(System.getProperty("user.dir")));  // run in current working directory (using path differently***)
 
                         if (outFile != null)
                         {
