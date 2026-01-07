@@ -3,15 +3,17 @@ package main;
 import java.io.File;
 import java.io.IOException;
 
-public class Cd {
+public class Cd
+{
     static String home = System.getProperty("user.home");
-    public static void change(String command) throws IOException {
-        if(command==null || command.isEmpty())
+    public static void change(String command) throws IOException
+    {
+        if (command == null || command.isEmpty())
         {
-            if(home!=null)
+            if (home != null)
             {
                 File f = new File(home);
-                if(f.exists())
+                if (f.exists())
                 {
                     System.setProperty("user.dir", f.getCanonicalPath());
                 }
@@ -19,10 +21,13 @@ public class Cd {
             System.out.print("$ ");
             return;
         }
-        if (command.equals("~")) {
-            if (home != null) {
+        if (command.equals("~"))
+        {
+            if (home != null)
+            {
                 File crd = new File(home);
-                if (crd.exists() && crd.isDirectory()) {
+                if (crd.exists() && crd.isDirectory())
+                {
                     System.setProperty("user.dir", crd.getCanonicalPath());
                 }
             }

@@ -7,10 +7,13 @@ import java.util.Scanner;
 import java.io.File;
 
 
-public class Main {
-    public static void main(String[] args) throws Exception {
+public class Main
+{
+    public static void main(String[] args) throws Exception
+    {
         System.out.print("$ ");
-        try (Scanner sc = new Scanner(System.in)) {
+        try (Scanner sc = new Scanner(System.in))
+        {
             HashMap<String, String> builtins = new HashMap<>();
             builtins.put("echo", "echo is a shell builtin");
             builtins.put("exit", "exit is a shell builtin");
@@ -18,7 +21,8 @@ public class Main {
             builtins.put("pwd", "pwd is a shell builtin");
             builtins.put("cd", "cd is a shell builtin");
 
-            while (sc.hasNextLine()) {
+            while (sc.hasNextLine())
+            {
                 String command = sc.nextLine();
                 //Exit cmds
                 if (Exit.handle(command))
@@ -29,21 +33,27 @@ public class Main {
                 //for adding >
                 String outFile = null;
                 List<String> argsList = new ArrayList<>();
-                for (int i = 0; i < words.length; i++) {
+                for (int i = 0; i < words.length; i++)
+                {
                     String w = words[i];
-                    if (w.equals(">") || w.equals("1>")) {
-                        if (i + 1 >= words.length) {
+                    if (w.equals(">") || w.equals("1>"))
+                    {
+                        if (i + 1 >= words.length)
+                        {
                             System.out.println("syntax error: no file after >");
                             outFile = null;
                             argsList.clear();
                             break;
                         }
                         outFile = words[++i]; // next token is filename
-                    } else {
+                    }
+                    else
+                    {
                         argsList.add(w);
                     }
                 }
-                if (argsList.isEmpty()) {
+                if (argsList.isEmpty())
+                {
                     System.out.print("$ ");
                     continue;
                 }
@@ -51,25 +61,29 @@ public class Main {
                 String cmdName = argsList.get(0);
                 String[] args1 = argsList.toArray(new String[0]);
 
-                if (words.length > 0 && words[0].equals("echo")) {
+                if (words.length > 0 && words[0].equals("echo"))
+                {
                     Echo.say(words);
                     continue;
                 }
 
                 //Type cmds
-                if (words.length > 0 && words[0].equals("type")) {
+                if (words.length > 0 && words[0].equals("type"))
+                {
                     Type.show(builtins, command);
                     continue;
                 }
 
                 //pwd code
-                if (words.length > 0 && words[0].equals("pwd")) {
+                if (words.length > 0 && words[0].equals("pwd"))
+                {
                     Pwd.getdir();
                     continue;
                 }
 
                 //cd code
-                if (words.length > 0 && words[0].equals("cd")) {
+                if (words.length > 0 && words[0].equals("cd"))
+                {
                     Cd.change(words[1]);
                     continue;
                 }
@@ -81,24 +95,30 @@ public class Main {
                 String path = System.getenv("PATH");
                 String[] dir = path.split(ps);
                 boolean found = false;
-                for (String dir1 : dir) {
+                for (String dir1 : dir)
+                {
                     String fp = dir1 + ds + words[0] + (os.contains("win")?".exe" : "");
                     File f = new File(fp);
-                    if (f.exists() && f.canExecute()) {
+                    if (f.exists() && f.canExecute())
+                    {
                         List<String> cmd = new ArrayList<>();
                         cmd.add(cmdName);  // Using basename
-                        for (int i = 1; i < args1.length; i++) {
+                        for (int i = 1; i < args1.length; i++)
+                        {
                             cmd.add(args1[i]);
                         }
                         ProcessBuilder pb = new ProcessBuilder(cmd);
 
                         pb.directory(new File(dir1));  // using path differently***
 
-                        if (outFile != null) {
+                        if (outFile != null)
+                        {
                             pb.redirectOutput(new File(outFile));
                             pb.redirectError(ProcessBuilder.Redirect.INHERIT);
                             pb.redirectInput(ProcessBuilder.Redirect.INHERIT);
-                        } else {
+                        }
+                        else
+                        {
                             pb.inheritIO();
                         }
                         Process process = pb.start();
@@ -107,7 +127,8 @@ public class Main {
                         break;
                     }
                 }
-                if (!found) {
+                if (!found)
+                {
                     System.out.print(words[0] + ": not found \n$ ");
                     continue;
                 }
@@ -116,4 +137,3 @@ public class Main {
         }
     }
 }
-
