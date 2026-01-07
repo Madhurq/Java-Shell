@@ -20,6 +20,7 @@ public class Main
             builtins.put("type", "type is a shell builtin");
             builtins.put("pwd", "pwd is a shell builtin");
             builtins.put("cd", "cd is a shell builtin");
+            builtins.put("ls", "ls is a shell builtin");
 
             while (sc.hasNextLine())
             {
@@ -85,6 +86,13 @@ public class Main
                 if (words.length > 0 && words[0].equals("cd"))
                 {
                     Cd.change(words[1]);
+                    continue;
+                }
+
+                //ls code
+                if (words.length > 0 && words[0].equals("ls"))
+                {
+                    Ls.list(words);
                     continue;
                 }
 
