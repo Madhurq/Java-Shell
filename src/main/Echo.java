@@ -1,16 +1,17 @@
 package main;
 
-public class Echo
+public class Echo implements Command
 {
-    public static void say(String[] words)
+    @Override
+    public void execute(String[] args)
     {
-        for (int i = 1; i < words.length; i++)
+        for (int i = 1; i < args.length; i++)
         {
             if (i > 1)
             {
                 System.out.print(" ");
             }
-            System.out.print(words[i]);
+            System.out.print(args[i]);
         }
         System.out.print("\n$ ");
     }

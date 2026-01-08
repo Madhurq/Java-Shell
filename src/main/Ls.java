@@ -2,8 +2,14 @@ package main;
 
 import java.io.File;
 
-public class Ls
+public class Ls implements Command
 {
+    @Override
+    public void execute(String[] args)
+    {
+        list(args);
+    }
+
     public static void list(String[] args)
     {
         String dirPath;

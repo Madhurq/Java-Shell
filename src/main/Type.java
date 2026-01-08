@@ -3,33 +3,45 @@ package main;
 import java.io.File;
 import java.util.HashMap;
 
-public class Type
+public class Type implements Command
 {
+    private HashMap<String, String> builtins;
 
-    public static void show(HashMap<String, String> map, String cmd)
+    public Type(HashMap<String, String> builtins)
     {
-        String[] parts = cmd.split(" ");
-        if (parts.length < 2)
+        this.builtins = builtins;
+    }
+
+    @Override
+    public void execute(String[] args)
+    {
+        if (args.length < 2)
         {
+            System.out.print("$ ");
             return;
         }
 
-        String alr = parts[1];
-        if (map.containsKey(alr))
+        String alr = args[1];
+        if (builtins.containsKey(alr))
         {
-            System.out.println(map.get(alr));
+            System.out.println(builtins.get(alr));
             System.out.print("$ ");
             return;
         }
 
         //path for external cmds
+        String os = System.getProperty("os.name").toLowerCase();
+        String ps = os.contains("win") ? ";" : ":";
+        String ext = os.contains("win") ? ".exe" : "";
+        String ds = os.contains("win") ? "\\" : "/";
+        
         String path = System.getenv("PATH");
         if (path != null)
         {
-            String[] dir = path.split(";");
+            String[] dir = path.split(ps);
             for (String dir1 : dir)
             {
-                String filepath = dir1 + "\\" + alr + ".exe";
+                String filepath = dir1 + ds + alr + ext;
                 File f = new File(filepath);
                 if (f.exists())
                 {

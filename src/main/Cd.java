@@ -3,9 +3,17 @@ package main;
 import java.io.File;
 import java.io.IOException;
 
-public class Cd
+public class Cd implements Command
 {
     static String home = System.getProperty("user.home");
+
+    @Override
+    public void execute(String[] args) throws Exception
+    {
+        String target = (args.length > 1) ? args[1] : null;
+        change(target);
+    }
+
     public static void change(String command) throws IOException
     {
         if (command == null || command.isEmpty())
@@ -50,6 +58,5 @@ public class Cd
             System.out.println("cd : " + command + " : not found");
             System.out.print("$ ");
         }
-
     }
 }

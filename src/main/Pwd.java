@@ -1,8 +1,9 @@
 package main;
 
-public class Pwd
+public class Pwd implements Command
 {
-    public static void getdir()
+    @Override
+    public void execute(String[] args)
     {
         String dir = System.getProperty("user.dir");
         System.out.print(dir);

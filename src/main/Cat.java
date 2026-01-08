@@ -5,8 +5,14 @@ import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
 
-public class Cat
+public class Cat implements Command
 {
+    @Override
+    public void execute(String[] args)
+    {
+        show(args);
+    }
+
     public static void show(String[] args)
     {
         if (args.length < 2)

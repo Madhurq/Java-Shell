@@ -1,8 +1,9 @@
 package main;
 
-public class Clear
+public class Clear implements Command
 {
-    public static void screen()
+    @Override
+    public void execute(String[] args)
     {
         System.out.print("\033[H\033[2J"); //special ansi code to clear screen
         System.out.flush(); //flushes everything
