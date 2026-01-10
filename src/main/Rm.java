@@ -20,7 +20,7 @@ public class Rm implements Command
         {
             String cmd = directoryMode ? "rmdir" : "rm"; //sends true for rmdir command and false for rm
             System.out.println(cmd + ": missing operand");
-            System.out.print("$ ");
+            
             return;
         }
 
@@ -67,6 +67,6 @@ public class Rm implements Command
                 }
             }
         }
-        System.out.print("$ ");
+        
     }
 }

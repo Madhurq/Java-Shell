@@ -18,7 +18,7 @@ public class Cat implements Command
         if (args.length < 2)
         {
             System.out.println("cat: missing file operand");
-            System.out.print("$ ");
+            
             return;
         }
 
@@ -57,6 +57,6 @@ public class Cat implements Command
                 System.out.println("cat: " + filePath + ": " + e.getMessage());
             }
         }
-        System.out.print("$ ");
+        
     }
 }

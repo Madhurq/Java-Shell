@@ -13,6 +13,6 @@ public class Echo implements Command
             }
             System.out.print(args[i]);
         }
-        System.out.print("\n$ ");
+        System.out.print("\n");
     }
 }

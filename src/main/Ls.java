@@ -31,14 +31,14 @@ public class Ls implements Command
         if (!dir.exists())
         {
             System.out.println("ls: cannot access '" + dirPath + "': No such file or directory");
-            System.out.print("$ ");
+            
             return;
         }
 
         if (!dir.isDirectory())
         {
             System.out.println(dir.getName());
-            System.out.print("$ ");
+            
             return;
         }
 
@@ -58,6 +58,6 @@ public class Ls implements Command
             }
             System.out.println();
         }
-        System.out.print("$ ");
+        
     }
 }

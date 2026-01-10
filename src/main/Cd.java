@@ -26,7 +26,7 @@ public class Cd implements Command
                     System.setProperty("user.dir", f.getCanonicalPath());
                 }
             }
-            System.out.print("$ ");
+            
             return;
         }
         if (command.equals("~"))
@@ -39,7 +39,7 @@ public class Cd implements Command
                     System.setProperty("user.dir", crd.getCanonicalPath());
                 }
             }
-            System.out.print("$ ");
+            
             return;
         }
         File dir = new File(command);
@@ -51,12 +51,12 @@ public class Cd implements Command
         {
             File crd = dir.getCanonicalFile();
             System.setProperty("user.dir", crd.getAbsolutePath());
-            System.out.print("$ ");
+            
         }
         else
         {
             System.out.println("cd : " + command + " : not found");
-            System.out.print("$ ");
+            
         }
     }
 }

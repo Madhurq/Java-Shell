@@ -10,7 +10,7 @@ public class Mkdir implements Command
         if (args.length < 2)
         {
             System.out.println("mkdir: missing operand");
-            System.out.print("$ ");
+            
             return;
         }
 
@@ -35,6 +35,6 @@ public class Mkdir implements Command
                 System.out.println("mkdir: cannot create directory '" + dirPath + "': No such file or directory");
             }
         }
-        System.out.print("$ ");
+        
     }
 }

@@ -17,7 +17,7 @@ public class Type implements Command
     {
         if (args.length < 2)
         {
-            System.out.print("$ ");
+            
             return;
         }
 
@@ -25,7 +25,7 @@ public class Type implements Command
         if (builtins.containsKey(alr))
         {
             System.out.println(builtins.get(alr));
-            System.out.print("$ ");
+            
             return;
         }
 
@@ -46,13 +46,13 @@ public class Type implements Command
                 if (f.exists())
                 {
                     System.out.println(alr + " is " + filepath);
-                    System.out.print("$ ");
+                    
                     return;
                 }
             }
         }
         //if nth found
         System.out.println(alr + ": not found ");
-        System.out.print("$ ");
+        
     }
 }

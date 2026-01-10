@@ -10,7 +10,7 @@ public class Main
 {
     public static void main(String[] args) throws Exception
     {
-        System.out.print("$ ");
+        System.out.print(System.getProperty("user.dir") + " $ ");
         try (Scanner sc = new Scanner(System.in))
         {
             // Builtins map for the 'type' command
@@ -75,7 +75,7 @@ public class Main
 
                 if (argsList.isEmpty())
                 {
-                    System.out.print("$ ");
+                    System.out.print(System.getProperty("user.dir") + " $ ");
                     continue;
                 }
 
@@ -86,6 +86,7 @@ public class Main
                 if (commands.containsKey(cmdName))
                 {
                     commands.get(cmdName).execute(cmdArgs);
+                    System.out.print(System.getProperty("user.dir") + " $ ");
                     continue;
                 }
 
@@ -132,10 +133,10 @@ public class Main
 
                 if (!found)
                 {
-                    System.out.print(cmdName + ": not found \n$ ");
+                    System.out.print(cmdName + ": not found\n" + System.getProperty("user.dir") + " $ ");
                     continue;
                 }
-                System.out.print("$ ");
+                System.out.print(System.getProperty("user.dir") + " $ ");
             }
         }
     }
