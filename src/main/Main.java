@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.io.File;
-
 import org.jline.reader.*;
 import org.jline.reader.impl.completer.*;
 import org.jline.builtins.Completers;
@@ -19,7 +18,7 @@ public class Main
         
         // Command completer for builtins
         StringsCompleter commandCompleter = new StringsCompleter(
-            "echo", "exit", "type", "pwd", "cd", "ls", "cat", "clear", "mkdir", "rm", "rmdir"
+            "echo", "exit", "type", "pwd", "cd", "ls", "cat", "clear", "mkdir", "rm", "rmdir", "whoami", "touch"
         );
         
         // File path completer for tab-completing files/directories
@@ -46,6 +45,8 @@ public class Main
         builtins.put("mkdir", "mkdir is a shell builtin");
         builtins.put("rm", "rm is a shell builtin");
         builtins.put("rmdir", "rmdir is a shell builtin");
+        builtins.put("whoami", "whoami is a shell builtin");
+        builtins.put("touch", "touch is a shell builtin");
 
         // Command dispatch map - HashMap replaces the if-else chain!
         HashMap<String, Command> commands = new HashMap<>();
@@ -59,6 +60,8 @@ public class Main
         commands.put("mkdir", new Mkdir());
         commands.put("rm", new Rm());
         commands.put("rmdir", new Rm(true));  // rmdir is just rm with directory mode
+        commands.put("whoami", new Whoami());
+        commands.put("touch", new Touch());
 
         while (true)
         {
