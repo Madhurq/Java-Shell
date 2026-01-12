@@ -7,6 +7,7 @@ import java.io.File;
 
 import org.jline.reader.*;
 import org.jline.reader.impl.completer.*;
+import org.jline.builtins.Completers;
 import org.jline.terminal.*;
 
 public class Main
@@ -22,7 +23,7 @@ public class Main
         );
         
         // File path completer for tab-completing files/directories
-        FileNameCompleter fileCompleter = new FileNameCompleter();
+        Completers.FileNameCompleter fileCompleter = new Completers.FileNameCompleter();
         
         // Combine both completers
         AggregateCompleter completer = new AggregateCompleter(commandCompleter, fileCompleter);
