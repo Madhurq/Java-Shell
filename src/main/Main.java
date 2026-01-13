@@ -11,6 +11,51 @@ import org.jline.terminal.*;
 
 public class Main
 {
+    
+     //Get the builtins map for the 'type' command.
+     // Shared between console and GUI modes.
+     //basically all that is done is have builtins and cmds as fn to be passed to swing 
+    public static HashMap<String, String> getBuiltins()
+    {
+        HashMap<String, String> builtins = new HashMap<>();
+        builtins.put("echo", "echo is a shell builtin");
+        builtins.put("exit", "exit is a shell builtin");
+        builtins.put("type", "type is a shell builtin");
+        builtins.put("pwd", "pwd is a shell builtin");
+        builtins.put("cd", "cd is a shell builtin");
+        builtins.put("ls", "ls is a shell builtin");
+        builtins.put("cat", "cat is a shell builtin");
+        builtins.put("clear", "clear is a shell builtin");
+        builtins.put("mkdir", "mkdir is a shell builtin");
+        builtins.put("rm", "rm is a shell builtin");
+        builtins.put("rmdir", "rmdir is a shell builtin");
+        builtins.put("whoami", "whoami is a shell builtin");
+        builtins.put("touch", "touch is a shell builtin");
+        return builtins;
+    }
+
+    /**
+     * Get the commands map for command dispatch.
+     * Shared between console and GUI modes.
+     */
+    public static HashMap<String, Command> getCommands(HashMap<String, String> builtins)
+    {
+        HashMap<String, Command> commands = new HashMap<>();
+        commands.put("echo", new Echo());
+        commands.put("pwd", new Pwd());
+        commands.put("cd", new Cd());
+        commands.put("ls", new Ls());
+        commands.put("cat", new Cat());
+        commands.put("clear", new Clear());
+        commands.put("type", new Type(builtins));
+        commands.put("mkdir", new Mkdir());
+        commands.put("rm", new Rm());
+        commands.put("rmdir", new Rm(true));  // rmdir is just rm with directory mode
+        commands.put("whoami", new Whoami());
+        commands.put("touch", new Touch());
+        return commands;
+    }
+
     public static void main(String[] args) throws Exception
     {
         // Build terminal and line reader with completers
@@ -32,36 +77,9 @@ public class Main
             .completer(completer)
             .build();
 
-        // Builtins map for the 'type' command
-        HashMap<String, String> builtins = new HashMap<>();
-        builtins.put("echo", "echo is a shell builtin");
-        builtins.put("exit", "exit is a shell builtin");
-        builtins.put("type", "type is a shell builtin");
-        builtins.put("pwd", "pwd is a shell builtin");
-        builtins.put("cd", "cd is a shell builtin");
-        builtins.put("ls", "ls is a shell builtin");
-        builtins.put("cat", "cat is a shell builtin");
-        builtins.put("clear", "clear is a shell builtin");
-        builtins.put("mkdir", "mkdir is a shell builtin");
-        builtins.put("rm", "rm is a shell builtin");
-        builtins.put("rmdir", "rmdir is a shell builtin");
-        builtins.put("whoami", "whoami is a shell builtin");
-        builtins.put("touch", "touch is a shell builtin");
-
-        // Command dispatch map - HashMap replaces the if-else chain!
-        HashMap<String, Command> commands = new HashMap<>();
-        commands.put("echo", new Echo());
-        commands.put("pwd", new Pwd());
-        commands.put("cd", new Cd());
-        commands.put("ls", new Ls());
-        commands.put("cat", new Cat());
-        commands.put("clear", new Clear());
-        commands.put("type", new Type(builtins));
-        commands.put("mkdir", new Mkdir());
-        commands.put("rm", new Rm());
-        commands.put("rmdir", new Rm(true));  // rmdir is just rm with directory mode
-        commands.put("whoami", new Whoami());
-        commands.put("touch", new Touch());
+        // Use shared builtins and commands
+        HashMap<String, String> builtins = getBuiltins();
+        HashMap<String, Command> commands = getCommands(builtins);
 
         while (true)
         {
