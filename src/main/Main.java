@@ -31,6 +31,7 @@ public class Main
         builtins.put("rmdir", "rmdir is a shell builtin");
         builtins.put("whoami", "whoami is a shell builtin");
         builtins.put("touch", "touch is a shell builtin");
+        builtins.put("cust", "cust is a shell builtin");
         return builtins;
     }
 
@@ -53,6 +54,7 @@ public class Main
         commands.put("rmdir", new Rm(true));  // rmdir is just rm with directory mode
         commands.put("whoami", new Whoami());
         commands.put("touch", new Touch());
+        commands.put("cust", new Cust());
         return commands;
     }
 

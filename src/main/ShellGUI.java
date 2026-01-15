@@ -25,6 +25,7 @@ public class ShellGUI extends JFrame
         commands = Main.getCommands(Main.getBuiltins());
         redirectOutput();
         Clear.clearCallback = () -> outputArea.setText("");
+        Cust.applyCallback = () -> applyColors();
         outputArea.append("Java Shell GUI\n\n");
     }
 
@@ -34,7 +35,11 @@ public class ShellGUI extends JFrame
         setSize(800, 500);
         setLocationRelativeTo(null);
 
-        Color bg = new Color(30, 30, 30), fg = new Color(200, 200, 200);
+        // Load colors from config
+        ShellConfig config = ShellConfig.getInstance();
+        Color bg = config.getBackgroundColor();
+        Color fg = config.getForegroundColor();
+        Color promptColor = config.getPromptColor();
 
         outputArea = new JTextArea();
         outputArea.setEditable(false);
@@ -48,7 +53,7 @@ public class ShellGUI extends JFrame
         inputPanel.setBorder(BorderFactory.createEmptyBorder(5, 5, 5, 5));
 
         promptLabel = new JLabel(getPrompt());
-        promptLabel.setForeground(new Color(100, 180, 100));
+        promptLabel.setForeground(promptColor);
         promptLabel.setFont(new Font("Consolas", Font.BOLD, 14));
 
         inputField = new JTextField();
@@ -77,6 +82,41 @@ public class ShellGUI extends JFrame
         main.add(new JScrollPane(outputArea), BorderLayout.CENTER);
         main.add(inputPanel, BorderLayout.SOUTH);
         add(main);
+    }
+
+    /**
+     * Apply colors from config to all GUI components.
+     * Called on startup and when colors are changed via cust command.
+     */
+    public void applyColors()
+    {
+        ShellConfig config = ShellConfig.getInstance();
+        Color bg = config.getBackgroundColor();
+        Color fg = config.getForegroundColor();
+        Color promptColor = config.getPromptColor();
+
+        outputArea.setBackground(bg);
+        outputArea.setForeground(fg);
+        inputField.setBackground(bg);
+        inputField.setForeground(fg);
+        inputField.setCaretColor(fg);
+        promptLabel.setForeground(promptColor);
+
+        // Update panel backgrounds
+        Component comp = getContentPane().getComponent(0);
+        if (comp instanceof JPanel)
+        {
+            JPanel mainPanel = (JPanel) comp;
+            mainPanel.setBackground(bg);
+            for (Component c : mainPanel.getComponents())
+            {
+                if (c instanceof JPanel)
+                {
+                    c.setBackground(bg);
+                }
+            }
+        }
+        repaint();
     }
 
     private void redirectOutput()
