@@ -26,6 +26,7 @@ public class ShellGUI extends JFrame
         redirectOutput();
         Clear.clearCallback = () -> outputArea.setText("");
         Cust.applyCallback = () -> applyColors();
+        SoundPlayer.init(); // Initialize sound effects
         outputArea.append("Java Shell GUI\n\n");
     }
 
@@ -68,6 +69,10 @@ public class ShellGUI extends JFrame
                 if (e.getKeyCode() == KeyEvent.VK_UP) navigateHistory(-1);
                 else if (e.getKeyCode() == KeyEvent.VK_DOWN) navigateHistory(1);
                 else if (e.getKeyCode() == KeyEvent.VK_TAB) { tabComplete(); e.consume(); }
+            }
+            public void keyTyped(KeyEvent e) {
+                // Play key press sound for every typed character
+                SoundPlayer.playKeyPress();
             }
         });
         // Prevent Tab from moving focus
