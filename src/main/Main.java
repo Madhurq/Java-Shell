@@ -32,6 +32,7 @@ public class Main
         builtins.put("whoami", "whoami is a shell builtin");
         builtins.put("touch", "touch is a shell builtin");
         builtins.put("cust", "cust is a shell builtin");
+        builtins.put("start", "start is a shell builtin");
         return builtins;
     }
 
@@ -55,6 +56,7 @@ public class Main
         commands.put("whoami", new Whoami());
         commands.put("touch", new Touch());
         commands.put("cust", new Cust());
+        commands.put("start", new Start());
         return commands;
     }
 
@@ -65,7 +67,7 @@ public class Main
         
         // Command completer for builtins
         StringsCompleter commandCompleter = new StringsCompleter(
-            "echo", "exit", "type", "pwd", "cd", "ls", "cat", "clear", "mkdir", "rm", "rmdir", "whoami", "touch"
+            "echo", "exit", "type", "pwd", "cd", "ls", "cat", "clear", "mkdir", "rm", "rmdir", "whoami", "touch", "cust", "start"
         );
         
         // File path completer for tab-completing files/directories
