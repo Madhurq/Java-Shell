@@ -28,6 +28,21 @@ public class ShellGUI extends JFrame
         Cust.applyCallback = () -> applyColors();
         SoundPlayer.init(); // Initialize sound effects
         outputArea.append("Java Shell GUI\n\n");
+
+        // Auto-focus input field when window gains focus
+        addWindowFocusListener(new java.awt.event.WindowFocusListener() {
+            public void windowGainedFocus(WindowEvent e) {
+                inputField.requestFocusInWindow();
+            }
+            public void windowLostFocus(WindowEvent e) {}
+        });
+
+        // Clicking on output area also focuses input field
+        outputArea.addMouseListener(new MouseAdapter() {
+            public void mousePressed(MouseEvent e) {
+                inputField.requestFocusInWindow();
+            }
+        });
     }
 
     private void setupUI()
