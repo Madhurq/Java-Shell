@@ -78,6 +78,9 @@ public class ShellGUI extends JFrame
         // Prevent Tab from moving focus
         inputField.setFocusTraversalKeysEnabled(false);
 
+        // Setup right-click context menus
+        setupContextMenu();
+
         inputPanel.add(promptLabel, BorderLayout.WEST);
         inputPanel.add(inputField, BorderLayout.CENTER);
 
@@ -87,6 +90,54 @@ public class ShellGUI extends JFrame
         main.add(new JScrollPane(outputArea), BorderLayout.CENTER);
         main.add(inputPanel, BorderLayout.SOUTH);
         add(main);
+    }
+
+    /**
+     * Setup right-click context menus for output area and input field.
+     */
+    private void setupContextMenu()
+    {
+        // Context menu for output area (read-only: Copy, Select All, Clear)
+        JPopupMenu outputMenu = new JPopupMenu();
+        
+        JMenuItem copyOutput = new JMenuItem("Copy");
+        copyOutput.addActionListener(e -> outputArea.copy());
+        outputMenu.add(copyOutput);
+        
+        JMenuItem selectAllOutput = new JMenuItem("Select All");
+        selectAllOutput.addActionListener(e -> outputArea.selectAll());
+        outputMenu.add(selectAllOutput);
+        
+        outputMenu.addSeparator();
+        
+        JMenuItem clearOutput = new JMenuItem("Clear");
+        clearOutput.addActionListener(e -> outputArea.setText(""));
+        outputMenu.add(clearOutput);
+        
+        outputArea.setComponentPopupMenu(outputMenu);
+
+        // Context menu for input field (editable: Copy, Paste, Select All, Clear)
+        JPopupMenu inputMenu = new JPopupMenu();
+        
+        JMenuItem copyInput = new JMenuItem("Copy");
+        copyInput.addActionListener(e -> inputField.copy());
+        inputMenu.add(copyInput);
+        
+        JMenuItem pasteInput = new JMenuItem("Paste");
+        pasteInput.addActionListener(e -> inputField.paste());
+        inputMenu.add(pasteInput);
+        
+        JMenuItem selectAllInput = new JMenuItem("Select All");
+        selectAllInput.addActionListener(e -> inputField.selectAll());
+        inputMenu.add(selectAllInput);
+        
+        inputMenu.addSeparator();
+        
+        JMenuItem clearInput = new JMenuItem("Clear");
+        clearInput.addActionListener(e -> inputField.setText(""));
+        inputMenu.add(clearInput);
+        
+        inputField.setComponentPopupMenu(inputMenu);
     }
 
     /**
