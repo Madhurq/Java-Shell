@@ -87,7 +87,30 @@ public class ShellGUI extends JFrame
         JPanel main = new JPanel(new BorderLayout());
         main.setBackground(bg);
         main.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
-        main.add(new JScrollPane(outputArea), BorderLayout.CENTER);
+        JScrollPane scrollPane = new JScrollPane(outputArea);
+        scrollPane.setBorder(null);
+        scrollPane.getVerticalScrollBar().setPreferredSize(new Dimension(8, 0));
+        scrollPane.getVerticalScrollBar().setUI(new javax.swing.plaf.basic.BasicScrollBarUI() {
+            @Override
+            protected void configureScrollBarColors() {
+                this.thumbColor = new Color(100, 100, 100);      // Scrollbar thumb
+                this.trackColor = bg;                             // Track matches background
+            }
+            @Override
+            protected JButton createDecreaseButton(int orientation) {
+                return createZeroButton();  // Hide arrows
+            }
+            @Override
+            protected JButton createIncreaseButton(int orientation) {
+                return createZeroButton();  // Hide arrows
+            }
+            private JButton createZeroButton() {
+                JButton button = new JButton();
+                button.setPreferredSize(new Dimension(0, 0));
+                return button;
+            }
+        });
+        main.add(scrollPane, BorderLayout.CENTER);
         main.add(inputPanel, BorderLayout.SOUTH);
         add(main);
     }
