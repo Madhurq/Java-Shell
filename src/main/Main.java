@@ -33,6 +33,7 @@ public class Main
         builtins.put("touch", "touch is a shell builtin");
         builtins.put("cust", "cust is a shell builtin");
         builtins.put("start", "start is a shell builtin");
+        builtins.put("calc", "calc evaluating java expressions using JShell");
         return builtins;
     }
 
@@ -57,6 +58,7 @@ public class Main
         commands.put("touch", new Touch());
         commands.put("cust", new Cust());
         commands.put("start", new Start());
+        commands.put("calc", new Calc());
         return commands;
     }
 
@@ -67,7 +69,7 @@ public class Main
         
         // Command completer for builtins
         StringsCompleter commandCompleter = new StringsCompleter(
-            "echo", "exit", "type", "pwd", "cd", "ls", "cat", "clear", "mkdir", "rm", "rmdir", "whoami", "touch", "cust", "start"
+            "echo", "exit", "type", "pwd", "cd", "ls", "cat", "clear", "mkdir", "rm", "rmdir", "whoami", "touch", "cust", "start", "calc"
         );
         
         // File path completer for tab-completing files/directories
