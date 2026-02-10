@@ -9,7 +9,7 @@ import java.io.*;
  */
 public class SoundPlayer
 {
-    private static final int POOL_SIZE = 5;
+    private static final int POOL_SIZE = 30;
     private static Clip[] clipPool = new Clip[POOL_SIZE];
     private static int currentClip = 0;
     private static boolean soundEnabled = true;
